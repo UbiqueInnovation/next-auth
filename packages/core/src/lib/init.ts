@@ -121,6 +121,7 @@ export async function init({
       maxAge,
       updateAge: 24 * 60 * 60,
       generateSessionToken: () => crypto.randomUUID(),
+      usePermanentCookies: true,
       ...authOptions.session,
     },
     // JWT options

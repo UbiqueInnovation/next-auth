@@ -256,6 +256,14 @@ export interface AuthConfig {
      * @default `randomUUID` or `randomBytes.toHex` depending on the Node.js version
      */
     generateSessionToken?: () => string
+    /**
+     * Defines the lifetime of the cookies. A `permanent cookie` (with defined Expires or Max-Mage)
+     * is not deleted when a browser session ends. When disabled, a `session cookie` (or non-persistent cookie) is used, 
+     * which will be removed by the browser when the browser session ends (tab/window closed).
+     *
+     * @default true
+     */
+    usePermanentCookies?: boolean
   }
   /**
    * JSON Web Tokens are enabled by default if you have not specified an {@link AuthConfig.adapter}.

@@ -19,7 +19,7 @@ export async function session(
     events,
     callbacks,
     logger,
-    session: { strategy: sessionStrategy, maxAge: sessionMaxAge },
+    session: { strategy: sessionStrategy, maxAge: sessionMaxAge, usePermanentCookies: usePermanentCookies },
   } = options
 
   const response: ResponseInternal<Session | null> = {
@@ -66,7 +66,7 @@ export async function session(
 
         // Set cookie, to also update expiry date on cookie
         const sessionCookies = sessionStore.chunk(newToken, {
-          expires: newExpires,
+          expires: usePermanentCookies ? newExpires : undefined,
         })
 
         response.cookies?.push(...sessionCookies)
@@ -144,7 +144,7 @@ export async function session(
         value: sessionToken,
         options: {
           ...options.cookies.sessionToken.options,
-          expires: newExpires,
+          expires: usePermanentCookies ? newExpires : undefined,
         },
       })
 
